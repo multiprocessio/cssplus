@@ -18,7 +18,7 @@ input .input, button .button {
 
 Into:
 
-```
+```css
 input .input, button .button {
   color: white;
   border: 1px solid blue;
