@@ -207,5 +207,4 @@ const input = fs.readFileSync(process.argv[2]).toString();
 const rules = parse(example);
 flatten(rules);
 
-console.log('FROM:\n'+ example)
-console.log('TO:\n\n'+ write(rules));
+console.log(write(rules));
