@@ -32,6 +32,21 @@ input .input, button .button {
     font-size: 0;
   }
 }
+
+/* Testing out some things */
+
+a {
+  background: url('mygreaturl;).,}{');
+}
+
+@keyframes pulse {
+  0% {
+    background: white;
+  }
+  50% {
+    background: red;
+  }
+}
 ```
 
 Run:
@@ -47,5 +62,18 @@ button .button {
 input .input a[value="{foobar,"],
 button .button a[value="{foobar,"] {
   font-size: 0;
+}
+
+a {
+  background: url('mygreaturl;).,}{');
+}
+
+@keyframes pulse {
+  0% {
+    background: white;
+  }
+  50% {
+    background: red;
+  }
 }
 ```
