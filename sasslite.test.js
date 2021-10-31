@@ -68,7 +68,7 @@ a {
   expect(transform(keyframe)).toEqual(keyframe.trim());
 });
 
-test('string parsing', () => {
+test("string parsing", () => {
   const sp = `
 div {
   background: url('};,:');
@@ -78,48 +78,48 @@ div {
   background: url("};,:");
 }
 
-`
+`;
   expect(transform(sp)).toEqual(sp.trim());
 });
 
-test('comments', () => {
+test("comments", () => {
   const comment = `
 /* a comment */
 div {
   background: white;
 }
 
-`
+`;
   expect(transform(comment)).toEqual(`div {
   background: white;
 }`);
 });
 
-test('invalid', () => {
+test("invalid", () => {
   const missingclose = `
 div {
 
-`
+`;
   const missingcolonfirst = `
 div {
   a
 }
-`
+`;
   const missingcolonsecond = `
 div {
   a: 1;
   b
 }
-`
+`;
   try {
     // And test debugging
     SETTINGS.DEBUG = true;
     transform(missingclose);
     transform(missingcolonfirst);
     transform(missingcolonsecond);
-    throw new Error('should not be here');
+    throw new Error("should not be here");
   } catch (e) {
-    if (e.message === 'should not be here') {
+    if (e.message === "should not be here") {
       throw e;
     }
 

@@ -91,14 +91,15 @@ function parseRule(input: string, i: number): [Rule, number] {
       guard(
         input,
         i,
-        "Waiting for colon " + (rule.declarations.length > 0
-          ? "after " +
+        "Waiting for colon " +
+          (rule.declarations.length > 0
+            ? "after " +
               JSON.stringify(
                 rule.declarations[rule.declarations.length - 1],
                 null,
                 2
               )
-          : "after first declaration")
+            : "after first declaration")
       );
 
       if (input[i] === "{") {
