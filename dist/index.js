@@ -1,11 +1,11 @@
 var u = Object.defineProperty;
 var m = (r) => u(r, "__esModule", { value: !0 });
-var i = (r, e) => {
+var R = (r, e) => {
   m(r);
   for (var o in e) u(r, o, { get: e[o], enumerable: !0 });
 };
-i(exports, { transform: () => k });
-var R = !1;
+R(exports, { SETTINGS: () => d, transform: () => k });
+var d = { DEBUG: !1 };
 function a(r, e) {
   for (; /\s/.test(r[e]); ) e++;
   if (r[e] === "/" && r[e + 1] === "*") {
@@ -16,12 +16,12 @@ function a(r, e) {
   return e;
 }
 function h(r, ...e) {
-  R && console.log("[Debug] " + r, ...e);
+  d.DEBUG && console.log("[Debug] " + r, ...e);
 }
 function c(r, e, o) {
   if ((h(o), r[e] === void 0)) throw new Error(o + " failed");
 }
-function d(r, e) {
+function w(r, e) {
   let o = "",
     n = { selectors: [], declarations: [], type: "rule" };
   c(r, e, "Waiting for EOL"), (e = a(r, e));
@@ -29,7 +29,7 @@ function d(r, e) {
   for (
     ;
     c(r, e, "Waiting for comma"),
-      ([o, e] = w(r, e, ["{", ","])),
+      ([o, e] = y(r, e, ["{", ","])),
       n.selectors.push(o),
       (e = a(r, e)),
       (s = r[e]),
@@ -49,19 +49,20 @@ function d(r, e) {
         (c(
           r,
           e,
-          "Waiting for colon " + n.declarations.length
-            ? "after " +
+          "Waiting for colon " +
+            (n.declarations.length > 0
+              ? "after " +
                 JSON.stringify(
                   n.declarations[n.declarations.length - 1],
                   null,
                   2
                 )
-            : " after first declaration"
+              : "after first declaration")
         ),
         r[e] === "{")
       ) {
-        let [g, b] = d(r, f);
-        n.declarations.push(g), (e = b), (t = !0);
+        let [g, i] = w(r, f);
+        n.declarations.push(g), (e = i), (t = !0);
         break;
       } else (o += r[e]), e++;
     if (t) {
@@ -71,7 +72,7 @@ function d(r, e) {
     e++,
       (l.property = o.trim()),
       (e = a(r, e)),
-      ([o, e] = w(r, e, [";"])),
+      ([o, e] = y(r, e, [";"])),
       e++,
       (l.value = o.trim()),
       n.declarations.push(l),
@@ -84,15 +85,15 @@ function W(r, e = 0) {
   let o = [];
   for (; e < r.length; ) {
     e = a(r, e);
-    let [n, s] = d(r, e);
+    let [n, s] = w(r, e);
     o.push(n), (e = a(r, s));
   }
   return o;
 }
-function w(r, e, o) {
+function y(r, e, o) {
   let n = "";
   for (e = a(r, e); !o.includes(r[e]); ) {
-    if ((c(r, e, "Waiting for " + o), r[e] === "'"))
+    if ((c(r, e, "Waiting for " + JSON.stringify(o)), r[e] === "'"))
       for (n += r[e], e++; r[e] !== "'"; )
         c(r, e, "Waiting for closing single quote"), (n += r[e]), e++;
     else if (r[e] === '"')
@@ -125,7 +126,7 @@ function E(r) {
     });
   });
 }
-function y(r, e = "") {
+function b(r, e = "") {
   let o = [];
   return (
     r.forEach(function (s) {
@@ -137,7 +138,7 @@ function y(r, e = "") {
       ];
       s.declarations.forEach(function (t) {
         if (t.type === "rule") {
-          let g = y([t], e + "  ");
+          let g = b([t], e + "  ");
           l.push(g);
         } else l.push(e + "  " + t.property + ": " + t.value + ";");
       }),
@@ -154,7 +155,7 @@ function y(r, e = "") {
 }
 function k(r) {
   let e = W(r);
-  return E(e), y(e);
+  return E(e), b(e);
 }
-0 && (module.exports = { transform });
+0 && (module.exports = { SETTINGS, transform });
 //# sourceMappingURL=index.js.map
