@@ -1,0 +1,26 @@
+{
+  "name": "sasslite",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "description": "Basic SASS transforms",
+  "author": "Phil Eaton",
+  "main": "./dist/index.js",
+  "types": "./dist/sasslite.d.ts",
+  "scripts": {
+    "typecheck": "yarn tsc",
+    "format": "yarn prettier --write \"**/*.js\" \"**/*.ts\" \"**/*.json\"",
+    "test": "yarn jest --coverage",
+    "build": "yarn esbuild --platform=node --bundle --minify --target=esnext sasslite.ts --sourcemap --outfile=dist/index.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.12.7",
+    "esbuild-jest": "^0.5.0",
+    "jest": "^27.0.6",
+    "prettier": "^2.3.0",
+    "typescript": "^4.4.0-beta"
+  },
+  "resolutions": {
+    "tmpl": "^1.0.5",
+    "set-value": "^4.0.1"
+  }
+}
