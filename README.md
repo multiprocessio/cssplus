@@ -19,12 +19,14 @@ input .input, button .button {
 Into:
 
 ```css
-input .input, button .button {
+input .input,
+button .button {
   color: white;
   border: 1px solid blue;
 }
 
-input .input a[value="{foobar,"], button .button a[value="{foobar,"] {
+input .input a[value="{foobar,"],
+button .button a[value="{foobar,"] {
   font-size: 0;
 }
 ```
