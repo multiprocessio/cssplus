@@ -84,7 +84,6 @@ function parseRule(input: string, i: number): [Rule, number] {
     i = eatWhitespace(input, i);
 
     const possibleInnerDeclarationStartingPoint = i;
-    // TODO: handle nested instead of declaration
     token = '';
     let foundInner = false;
     while (input[i] !== ':') {
