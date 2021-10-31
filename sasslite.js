@@ -151,23 +151,6 @@ function parse_token(input, i, endMarker) {
   return [token.trim(), i];
 }
 
-function write(rules) {
-  const out = [];
-  rules.forEach(function writeRule(rule) {
-    const declarations = [rule.selectors.join(', ') + ' {'];
-
-    rule.declarations.forEach(function writeDecl(decl) {
-      declarations.push('  ' + decl.property + ': ' + decl.value + ';');
-    });
-
-    declarations.push('}');
-
-    out.push(declarations.join('\n'));
-  });
-
-  return out.join('\n\n');
-}
-
 // SOURCE: https://stackoverflow.com/a/43053803/1507139
 function cartesian(...a) {
   return a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())));
@@ -176,7 +159,7 @@ function cartesian(...a) {
 function flatten(rules) {
   rules.forEach(function writeRule(rule, i) {
     rule.declarations.forEach(function flattenDecl(decl, di) {
-      if (decl.declarations) {
+      if (decl.declarations && !rule.selectors[0].startsWith('@')) {
 	// Insert into global rules after this one with correct selector
 	rules.splice(i + 1, 0, {
 	  ...decl,
@@ -188,6 +171,28 @@ function flatten(rules) {
       }
     });
   });
+}
+
+function write(rules, indent='') {
+  const out = [];
+  rules.forEach(function writeRule(rule) {
+    const declarations = [indent+rule.selectors.join(',\n') + ' {'];
+
+    rule.declarations.forEach(function writeDecl(decl) {
+      if (decl.selectors) {
+	const rules = write([decl], indent + '  ');
+	declarations.push(rules);
+      } else {
+	declarations.push(indent + '  ' + decl.property + ': ' + decl.value + ';');
+      }
+    });
+
+    declarations.push(indent+'}');
+
+    out.push(declarations.join('\n'));
+  });
+
+  return out.join('\n\n');
 }
 
 const example = `
@@ -204,7 +209,7 @@ input .input, button .button {
 `;
 
 const input = fs.readFileSync(process.argv[2]).toString();
-const rules = parse(example);
+const rules = parse(input);
 flatten(rules);
 
 console.log(write(rules));
