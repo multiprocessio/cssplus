@@ -1,4 +1,4 @@
-const { transform } = require("./transform");
+const { transform, SETTINGS } = require("./sasslite");
 
 test("basic css", () => {
   const basic = `
@@ -96,16 +96,33 @@ div {
 });
 
 test('invalid', () => {
-  const comment = `
+  const missingclose = `
 div {
 
 `
+  const missingcolonfirst = `
+div {
+  a
+}
+`
+  const missingcolonsecond = `
+div {
+  a: 1;
+  b
+}
+`
   try {
-    transform(comment);
+    // And test debugging
+    SETTINGS.DEBUG = true;
+    transform(missingclose);
+    transform(missingcolonfirst);
+    transform(missingcolonsecond);
     throw new Error('should not be here');
   } catch (e) {
     if (e.message === 'should not be here') {
       throw e;
     }
+
+    console.error(e);
   }
 });
