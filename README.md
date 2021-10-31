@@ -4,8 +4,8 @@ Expands nested CSS rules and will eventually support variables.
 
 ## Install
 
-```
-yarn add github.com/multiprocessio/cssplus@0.1.0
+```bash
+$ yarn add github.com/multiprocessio/cssplus@0.1.0
 ```
 
 ## Use
