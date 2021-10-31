@@ -131,7 +131,7 @@ div {
   }
 });
 
-test('large input', () => {
+test('multiple rules', () => {
   const base = `div.outer {
   color: black;
 
