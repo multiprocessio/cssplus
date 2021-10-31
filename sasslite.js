@@ -7,6 +7,21 @@ function eatWhitespace(input, start) {
     start++;
   }
 
+  // Eat comments
+  if (input[start] === '/' && input[start+1] === '*') {
+    // Skip past /*
+    start += 2;
+    while (!(input[start] === '*' && input[start + 1] === '/')) {
+      start++;
+    }
+    // Skip past */
+    start += 2;
+  }
+
+  while (/\s/.test(input[start])) {
+    start++;
+  }
+
   return start;
 }
 
