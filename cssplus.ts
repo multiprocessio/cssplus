@@ -208,7 +208,7 @@ function cartesian(...a: string[][]): string[][] {
 
 function flatten(rules: Rule[]) {
   for (let i = 0; i < rules.length; i++) {
-    const rule = rules[i]
+    const rule = rules[i];
 
     rule.declarations.forEach(function flattenDecl(decl, di) {
       if (decl.type === 'rule' && !rule.selectors[0].startsWith('@')) {
@@ -220,7 +220,7 @@ function flatten(rules: Rule[]) {
           ),
         });
 
-	i++; // Skip past added rule
+        i++; // Skip past added rule
 
         // Remove from here
         rule.declarations.splice(di, 1);

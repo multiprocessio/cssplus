@@ -1,7 +1,7 @@
 const { transform, SETTINGS } = require('./cssplus');
 
 test('basic css', () => {
-    // And test debugging
+  // And test debugging
   SETTINGS.DEBUG = true;
 
   const basic = `
@@ -153,5 +153,7 @@ div.outer div.inner {
 `;
 
   const nTimes = 2;
-  expect(transform(base.repeat(nTimes))).toEqual(expectedBase.repeat(nTimes).trim());
+  expect(transform(base.repeat(nTimes))).toEqual(
+    expectedBase.repeat(nTimes).trim()
+  );
 });
