@@ -1,6 +1,9 @@
 const { transform, SETTINGS } = require('./cssplus');
 
 test('basic css', () => {
+    // And test debugging
+  SETTINGS.DEBUG = true;
+
   const basic = `
 input .input, button .button {
   color: white;
@@ -20,6 +23,8 @@ button .button {
 a[value="{foobar,"] {
   font-size: 0;
 }`);
+
+  SETTINGS.DEBUG = false;
 });
 
 test('nested css', () => {
@@ -112,9 +117,6 @@ div {
 }
 `;
 
-  // And test debugging
-  SETTINGS.DEBUG = true;
-
   for (const test in [missingclose, missingcolonfirst, missingcolonsecond]) {
     try {
       transform(test);
@@ -127,4 +129,29 @@ div {
       console.error(e);
     }
   }
+});
+
+test('large input', () => {
+  const base = `div.outer {
+  color: black;
+
+  div.inner {
+    color: white;
+  }
+}
+
+`;
+
+  const expectedBase = `div.outer {
+  color: black;
+}
+
+div.outer div.inner {
+  color: white;
+}
+
+`;
+
+  const nTimes = 2;
+  expect(transform(base.repeat(nTimes))).toEqual(expectedBase.repeat(nTimes).trim());
 });

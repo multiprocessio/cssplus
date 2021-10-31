@@ -207,7 +207,9 @@ function cartesian(...a: string[][]): string[][] {
 }
 
 function flatten(rules: Rule[]) {
-  rules.forEach(function writeRule(rule, i) {
+  for (let i = 0; i < rules.length; i++) {
+    const rule = rules[i]
+
     rule.declarations.forEach(function flattenDecl(decl, di) {
       if (decl.type === 'rule' && !rule.selectors[0].startsWith('@')) {
         // Insert into global rules after this one with correct selector
@@ -218,11 +220,13 @@ function flatten(rules: Rule[]) {
           ),
         });
 
+	i++; // Skip past added rule
+
         // Remove from here
         rule.declarations.splice(di, 1);
       }
     });
-  });
+  }
 }
 
 function write(rules: Rule[], indent = '') {
