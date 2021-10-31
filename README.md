@@ -1,10 +1,29 @@
-# sasslite
+# cssplus
 
-A minimal SASS-like expander.
+Expands nested CSS rules and will eventually support variables.
 
-Transforms:
+## Install
+
+```
+yarn add github.com/multiprocessio/cssplus@0.1.0
+```
+
+## Use
+
+```
+import fs from 'fs';
+import { transform } from 'cssplus';
+
+const myCSSPlusFile = fs.readFileSync('myfile.css').toString();
+const css = transform(myCSSPlusFile);
+```
+
+## Command-line example
+
+Create a CSS file:
 
 ```scss
+$ cat example.css
 input .input, button .button {
   color: white;
   border: 1px solid blue;
@@ -15,16 +34,18 @@ input .input, button .button {
 }
 ```
 
-
-Into:
+Run:
 
 ```css
-input .input, button .button {
+$ node ./node_modules/cssplus/scripts/cssplus.js example.css
+input .input,
+button .button {
   color: white;
   border: 1px solid blue;
 }
 
-input .input a[value="{foobar,"], button .button a[value="{foobar,"] {
+input .input a[value="{foobar,"],
+button .button a[value="{foobar,"] {
   font-size: 0;
 }
 ```
