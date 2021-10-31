@@ -166,7 +166,7 @@ function parseToken(
   let token = "";
   i = eatWhitespace(input, i);
   while (!endMarker.includes(input[i])) {
-    guard(input, i, "Waiting for " + endMarker);
+    guard(input, i, "Waiting for " + JSON.stringify(endMarker));
     if (input[i] === "'") {
       token += input[i];
       i++;

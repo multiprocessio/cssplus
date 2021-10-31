@@ -111,18 +111,20 @@ div {
   b
 }
 `;
-  try {
-    // And test debugging
-    SETTINGS.DEBUG = true;
-    transform(missingclose);
-    transform(missingcolonfirst);
-    transform(missingcolonsecond);
-    throw new Error("should not be here");
-  } catch (e) {
-    if (e.message === "should not be here") {
-      throw e;
-    }
 
-    console.error(e);
+  // And test debugging
+  SETTINGS.DEBUG = true;
+
+  for (const test in [missingclose, missingcolonfirst, missingcolonsecond]) {
+    try {
+      transform(test);
+      throw new Error("should not be here");
+    } catch (e) {
+      if (e.message === "should not be here") {
+        throw e;
+      }
+
+      console.error(e);
+    }
   }
 });
