@@ -8,13 +8,13 @@ module.exports = {
     },
   },
   transform: {
-    "^.+\\.tsx?$": [
-      "esbuild-jest",
+    '^.+\\.tsx?$': [
+      'esbuild-jest',
       {
         sourcemap: true,
       },
     ],
   },
-  collectCoverageFrom: ["**/*.ts"],
-  modulePathIgnorePatterns: ["<rootDir>/dist/"],
+  collectCoverageFrom: ['**/*.ts'],
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
 };

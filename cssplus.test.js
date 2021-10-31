@@ -1,6 +1,6 @@
-const { transform, SETTINGS } = require("./cssplus");
+const { transform, SETTINGS } = require('./cssplus');
 
-test("basic css", () => {
+test('basic css', () => {
   const basic = `
 input .input, button .button {
   color: white;
@@ -22,7 +22,7 @@ a[value="{foobar,"] {
 }`);
 });
 
-test("nested css", () => {
+test('nested css', () => {
   const nested = `
 
 input .input, button .button {
@@ -48,7 +48,7 @@ button .button a[value="{foobar,"] {
 }`);
 });
 
-test("keyframe css", () => {
+test('keyframe css', () => {
   const keyframe = `
 a {
   color: white;
@@ -68,7 +68,7 @@ a {
   expect(transform(keyframe)).toEqual(keyframe.trim());
 });
 
-test("string parsing", () => {
+test('string parsing', () => {
   const sp = `
 div {
   background: url('};,:');
@@ -82,7 +82,7 @@ div {
   expect(transform(sp)).toEqual(sp.trim());
 });
 
-test("comments", () => {
+test('comments', () => {
   const comment = `
 /* a comment */
 div {
@@ -95,7 +95,7 @@ div {
 }`);
 });
 
-test("invalid", () => {
+test('invalid', () => {
   const missingclose = `
 div {
 
@@ -118,9 +118,9 @@ div {
   for (const test in [missingclose, missingcolonfirst, missingcolonsecond]) {
     try {
       transform(test);
-      throw new Error("should not be here");
+      throw new Error('should not be here');
     } catch (e) {
-      if (e.message === "should not be here") {
+      if (e.message === 'should not be here') {
         throw e;
       }
 
