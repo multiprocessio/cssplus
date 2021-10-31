@@ -1,4 +1,4 @@
-const { transform, SETTINGS } = require("./sasslite");
+const { transform, SETTINGS } = require("./cssplus");
 
 test("basic css", () => {
   const basic = `

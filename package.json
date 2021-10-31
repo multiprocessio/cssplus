@@ -1,16 +1,16 @@
 {
-  "name": "sasslite",
+  "name": "cssplus",
   "version": "0.1.0",
   "license": "Apache-2.0",
   "description": "Basic SASS transforms",
   "author": "Phil Eaton",
   "main": "./dist/index.js",
-  "types": "./dist/sasslite.d.ts",
+  "types": "./dist/cssplus.d.ts",
   "scripts": {
     "typecheck": "yarn tsc",
     "format": "yarn prettier --write \"**/*.js\" \"**/*.ts\" \"**/*.json\"",
     "test": "yarn jest --coverage",
-    "build": "yarn esbuild --platform=node --bundle --minify --target=esnext sasslite.ts --sourcemap --outfile=dist/index.js"
+    "build": "yarn esbuild --platform=node --bundle --minify --target=esnext cssplus.ts --sourcemap --outfile=dist/index.js"
   },
   "devDependencies": {
     "esbuild": "^0.12.7",

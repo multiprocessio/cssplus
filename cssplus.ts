@@ -250,8 +250,8 @@ function write(rules: Rule[], indent = "") {
   return out.join("\n\n");
 }
 
-export function transform(sass: string) {
-  const rules = parse(sass);
+export function transform(cssp: string) {
+  const rules = parse(cssp);
   flatten(rules);
   return write(rules);
 }

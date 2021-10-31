@@ -1,24 +1,21 @@
-# sasslite
+# cssplus
 
-A minimal expander from a subset of SASS to CSS using a fuzzy parser.
-
-Supports:
-* Nested CSS rules
+Expands nested CSS rules and will eventually support variables.
 
 ## Install
 
 ```
-yarn add github.com/multiprocessio/sasslite@0.1.0
+yarn add github.com/multiprocessio/cssplus@0.1.0
 ```
 
 ## Use
 
 ```
 import fs from 'fs';
-import { transform } from 'sasslite';
+import { transform } from 'cssplus';
 
-const mySASSFile = fs.readFileSync('myfile.sass').toString();
-const css = transform(mySASSFile);
+const myCSSPlusFile = fs.readFileSync('myfile.css').toString();
+const css = transform(myCSSPlusFile);
 ```
 
 ## Command-line example
@@ -40,7 +37,7 @@ input .input, button .button {
 Run:
 
 ```css
-$ node ./node_modules/sasslite/scripts/sasslite.js example.css
+$ node ./node_modules/cssplus/scripts/cssplus.js example.css
 input .input,
 button .button {
   color: white;
