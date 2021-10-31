@@ -10,7 +10,7 @@ yarn add github.com/multiprocessio/cssplus@0.1.0
 
 ## Use
 
-```
+```js
 import fs from 'fs';
 import { transform } from 'cssplus';
 
