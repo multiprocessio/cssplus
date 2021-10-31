@@ -38,6 +38,47 @@ function guard(input: string, i: number, msg: string) {
   }
 }
 
+function parseToken(
+  input: string,
+  i: number,
+  endMarker: Array<string>
+): [string, number] {
+  let token = '';
+  i = eatWhitespace(input, i);
+  while (!endMarker.includes(input[i])) {
+    guard(input, i, 'Waiting for ' + JSON.stringify(endMarker));
+    if (input[i] === "'") {
+      token += input[i];
+      i++;
+      while (input[i] !== "'") {
+        guard(input, i, 'Waiting for closing single quote');
+        token += input[i];
+        i++;
+      }
+    } else if (input[i] === '"') {
+      token += input[i];
+      i++;
+      while (input[i] !== '"') {
+        guard(input, i, 'Waiting for closing double quote');
+        token += input[i];
+        i++;
+      }
+    } else if (input[i] === '[') {
+      token += input[i];
+      i++;
+      while (input[i] !== ']') {
+        guard(input, i, 'Waiting for closing bracket');
+        token += input[i];
+        i++;
+      }
+    }
+    token += input[i];
+    i++;
+  }
+
+  return [token.trim(), i];
+}
+
 export interface Declaration {
   type: 'declaration';
   property: string;
@@ -155,47 +196,6 @@ function parse(input: string, i = 0) {
   }
 
   return rules;
-}
-
-function parseToken(
-  input: string,
-  i: number,
-  endMarker: Array<string>
-): [string, number] {
-  let token = '';
-  i = eatWhitespace(input, i);
-  while (!endMarker.includes(input[i])) {
-    guard(input, i, 'Waiting for ' + JSON.stringify(endMarker));
-    if (input[i] === "'") {
-      token += input[i];
-      i++;
-      while (input[i] !== "'") {
-        guard(input, i, 'Waiting for closing single quote');
-        token += input[i];
-        i++;
-      }
-    } else if (input[i] === '"') {
-      token += input[i];
-      i++;
-      while (input[i] !== '"') {
-        guard(input, i, 'Waiting for closing double quote');
-        token += input[i];
-        i++;
-      }
-    } else if (input[i] === '[') {
-      token += input[i];
-      i++;
-      while (input[i] !== ']') {
-        guard(input, i, 'Waiting for closing bracket');
-        token += input[i];
-        i++;
-      }
-    }
-    token += input[i];
-    i++;
-  }
-
-  return [token.trim(), i];
 }
 
 function cartesian(...a: string[][]): string[][] {
