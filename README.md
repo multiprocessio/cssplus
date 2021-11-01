@@ -96,7 +96,8 @@ a {
 
 ## Benchmarks
 
-This library is a good deal faster than the native C++ libsass parser:
+This library is a good deal faster than the JavaScript sass parser and
+closer to the native C++ libsass parser:
 
 ```
 $ cd ./benchmarks && yarn
@@ -111,8 +112,8 @@ $ time node ./cssplus-runner.js ./tens-of-thousands-of-rules.scss > cssplus-out
 node ./cssplus-runner.js ./tens-of-thousands-of-rules.scss > cssplus-out  0.37s user 0.02s system 157% cpu 0.246 total
 ```
 
-This is only possible because this library does no validation of
-selectors or property values.
+Again, this is only possible because this library does no validation
+of selectors or property values.
 
 ### Nested rule support
 
