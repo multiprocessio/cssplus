@@ -63,7 +63,8 @@ a {
 Run:
 
 ```css
-$ node ./node_modules/cssplus/scripts/cssplus.js examples/all-basic-features.css
+$ yarn && yarn build
+$ node ./scripts/cssplus.js examples/all-basic-features.css
 input .input,
 button .button {
   color: white;
