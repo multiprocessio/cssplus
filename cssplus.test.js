@@ -157,3 +157,36 @@ div.outer div.inner {
     expectedBase.repeat(nTimes).trim()
   );
 });
+
+test('multiple nesting', () => {
+  expect(
+    transform(`
+div {
+  a {
+    span {
+      color: blue;
+    }
+
+    img {
+      border: 0;
+
+      .thing {
+        display: none;
+      }
+    }
+  }
+}
+
+`)
+  ).toEqual(`div a span {
+  color: blue;
+}
+
+div a img .thing {
+  display: none;
+}
+
+div a img {
+  border: 0;
+}`);
+});

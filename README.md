@@ -1,11 +1,12 @@
 # cssplus
 
-Expands nested CSS rules and will eventually support variables.
+Expands nested CSS rules efficiently by fuzzy parsing and not
+validating the specific syntax of selectors and property values.
 
 ## Install
 
 ```bash
-$ yarn add github.com/multiprocessio/cssplus@0.1.0
+$ yarn add github.com/multiprocessio/cssplus@
 ```
 
 ## Use
@@ -20,10 +21,11 @@ const css = transform(myCSSPlusFile);
 
 ## Command-line example
 
-Create a CSS file:
+This repo includes a number of example files that should be correctly
+transformed.
 
 ```scss
-$ cat example.css
+$ cat examples/all-basic-features.css
 input .input, button .button {
   color: white;
   border: 1px solid blue;
@@ -32,6 +34,15 @@ input .input, button .button {
     font-size: 0;
   }
 }
+
+.container {
+  .row {
+    .col {
+      display: flex;
+    }
+  }
+}
+
 
 /* Testing out some things */
 
@@ -52,7 +63,7 @@ a {
 Run:
 
 ```css
-$ node ./node_modules/cssplus/scripts/cssplus.js example.css
+$ node ./node_modules/cssplus/scripts/cssplus.js examples/all-basic-features.css
 input .input,
 button .button {
   color: white;
@@ -62,6 +73,10 @@ button .button {
 input .input a[value="{foobar,"],
 button .button a[value="{foobar,"] {
   font-size: 0;
+}
+
+.container .row .col {
+  display: flex;
 }
 
 a {
