@@ -212,12 +212,18 @@ function flatten(rules: Rule[]) {
 
     rule.declarations.forEach(function flattenDecl(decl, di) {
       if (decl.type === 'rule' && !rule.selectors[0].startsWith('@')) {
-        // Insert into global rules after this one with correct selector
-        rules.splice(i + 1, 0, {
-          ...decl,
-          selectors: cartesian(rule.selectors, decl.selectors).map((inner) =>
-            inner.join(' ')
-          ),
+        // Handle multiple-y nested rules
+        const childRules = [decl];
+        flatten(childRules);
+
+        childRules.forEach(function flattenChild(cr, j) {
+          // Insert into global rules after this one with correct selector
+          rules.splice(i + 1, 0, {
+            ...cr,
+            selectors: cartesian(rule.selectors, cr.selectors).map((inner) =>
+              inner.join(' ')
+            ),
+          });
         });
 
         i++; // Skip past added rule
@@ -232,6 +238,10 @@ function flatten(rules: Rule[]) {
 function write(rules: Rule[], indent = '') {
   const out: string[] = [];
   rules.forEach(function writeRule(rule) {
+    if (rule.declarations.length === 0) {
+      return;
+    }
+
     const declarations = [indent + rule.selectors.join(',\n') + ' {'];
 
     rule.declarations.forEach(function writeDecl(decl) {
