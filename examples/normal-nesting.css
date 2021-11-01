@@ -1,0 +1,15 @@
+div {
+  a {
+    span {
+      color: blue;
+    }
+
+    img {
+      border: 0;
+
+      div {
+        background: white;
+      }
+    }
+  }
+}
