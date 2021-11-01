@@ -6,7 +6,7 @@ validating the specific syntax of selectors and property values.
 ## Install
 
 ```bash
-$ yarn add github.com/multiprocessio/cssplus
+$ yarn add @multiprocess/cssplus
 ```
 
 ## Use
