@@ -2,7 +2,7 @@
   "name": "@multiprocess/cssplus",
   "version": "0.3.0",
   "license": "Apache-2.0",
-  "description": "Basic SASS transforms",
+  "description": "Fast nested CSS rule expander in JavaScript",
   "author": "Phil Eaton",
   "main": "./dist/index.js",
   "types": "./dist/cssplus.d.ts",
