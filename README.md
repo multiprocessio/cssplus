@@ -1,11 +1,12 @@
 # cssplus
 
-Expands nested CSS rules and will eventually support variables.
+Expands nested CSS rules efficiently by fuzzy parsing and not
+validating the specific syntax of selectors and property values.
 
 ## Install
 
 ```bash
-$ yarn add github.com/multiprocessio/cssplus@0.1.0
+$ yarn add github.com/multiprocessio/cssplus@
 ```
 
 ## Use
