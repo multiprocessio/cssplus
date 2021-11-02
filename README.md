@@ -13,7 +13,7 @@ $ yarn add @multiprocess/cssplus
 
 ```js
 import fs from 'fs';
-import { transform } from 'cssplus';
+import { transform } from '@multiprocess/cssplus';
 
 const myCSSPlusFile = fs.readFileSync('myfile.css').toString();
 const css = transform(myCSSPlusFile);
