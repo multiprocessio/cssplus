@@ -207,32 +207,45 @@ function cartesian(...a: string[][]): string[][] {
 }
 
 function flatten(rules: Rule[]) {
+  const out = [];
+
   for (let i = 0; i < rules.length; i++) {
     const rule = rules[i];
+    const outRule: Rule = { ...rule, declarations: [] };
+    // Push it immediately and declarations will be added later so
+    // they'll appear after this if there are inner rules.
+    out.push(outRule);
 
-    rule.declarations.forEach(function flattenDecl(decl, di) {
-      if (decl.type === 'rule' && !rule.selectors[0].startsWith('@')) {
+    for (let di = 0; di < rule.declarations.length; di++) {
+      const decl = rule.declarations[di];
+
+      // This is a nested rule
+      if (decl.type === 'rule') {
         // Handle multiple-y nested rules
-        const childRules = [decl];
-        flatten(childRules);
+        const childRules = flatten([decl]);
 
-        childRules.forEach(function flattenChild(cr, j) {
-          // Insert into global rules after this one with correct selector
-          rules.splice(i + 1, 0, {
-            ...cr,
-            selectors: cartesian(rule.selectors, cr.selectors).map((inner) =>
-              inner.join(' ')
-            ),
-          });
+        childRules.forEach(function flattenChild(cr) {
+          // i.e. media queries, keyframes
+          const parentIsSpecial = rule.selectors[0].startsWith('@');
+          if (!parentIsSpecial) {
+            // Insert into global rules after parent, with correct selector
+            out.push({
+              ...cr,
+              selectors: cartesian(rule.selectors, cr.selectors).map((inner) =>
+                inner.join(' ')
+              ),
+            });
+          } else {
+            outRule.declarations.push(cr);
+          }
         });
-
-        i++; // Skip past added rule
-
-        // Remove from here
-        rule.declarations.splice(di, 1);
+      } else {
+        outRule.declarations.push(decl);
       }
-    });
+    }
   }
+
+  return out;
 }
 
 function write(rules: Rule[], indent = '') {
@@ -244,10 +257,14 @@ function write(rules: Rule[], indent = '') {
 
     const declarations = [indent + rule.selectors.join(',\n') + ' {'];
 
-    rule.declarations.forEach(function writeDecl(decl) {
+    rule.declarations.forEach(function writeDecl(decl, i) {
       if (decl.type === 'rule') {
         const rules = write([decl], indent + '  ');
         declarations.push(rules);
+        // Add extra newline between rules, but not last one
+        if (i <= rule.declarations.length - 2) {
+          declarations.push('');
+        }
       } else {
         declarations.push(
           indent + '  ' + decl.property + ': ' + decl.value + ';'
@@ -265,6 +282,6 @@ function write(rules: Rule[], indent = '') {
 
 export function transform(cssp: string) {
   const rules = parse(cssp);
-  flatten(rules);
-  return write(rules);
+  const flat = flatten(rules);
+  return write(flat);
 }

@@ -63,6 +63,7 @@ a {
   0% {
     background: white;
   }
+
   50% {
     background: red;
   }
@@ -182,11 +183,75 @@ div {
   color: blue;
 }
 
-div a img .thing {
-  display: none;
-}
-
 div a img {
   border: 0;
+}
+
+div a img .thing {
+  display: none;
+}`);
+});
+
+test('multiple single layer nesting', () => {
+  expect(
+    transform(`
+div {
+  a {
+    background: blue;
+  }
+  
+  span {
+    color: blue;
+  }
+
+  img {
+      border: 0;
+  }
+}
+
+`)
+  ).toEqual(`div a {
+  background: blue;
+}
+
+div span {
+  color: blue;
+}
+
+div img {
+  border: 0;
+}`);
+});
+
+test('nesting within special (e.g. media query)', () => {
+  expect(
+    transform(`
+@flubberty {
+  a {
+    background: blue;
+  
+    span {
+      color: blue;
+    }
+  }
+
+  button {
+    display: none;
+  }
+}
+
+`)
+  ).toEqual(`@flubberty {
+  a {
+    background: blue;
+  }
+
+  a span {
+    color: blue;
+  }
+
+  button {
+    display: none;
+  }
 }`);
 });
