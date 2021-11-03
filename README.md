@@ -173,3 +173,15 @@ Error: Code too deeply neested
 }
 node ./native-scss-runner.js ./too-nested.scss > native-scss-out  0.13s user 0.01s system 109% cpu 0.127 total
 ```
+
+## Internals
+
+You can read more about how it works [here](https://datastation.multiprocess.io/blog/2021-10-31-building-a-nested-css-rule-expander.html).
+
+## Users
+
+* [DataStation](https://github.com/multiprocessio/datastation)
+
+## License
+
+Apache-2.0, see [./LICENSE.md](./LICENSE.md).
